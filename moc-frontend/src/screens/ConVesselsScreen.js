@@ -9,11 +9,7 @@ function ConVesselsScreen() {
 
     const navigate = useNavigate();
 
-    const buttonHandler = () =>{
-        
-        console.log('funciona')
-        navigate('/vessel')
-    }
+    
 
     return (
         <Col md={9}>
