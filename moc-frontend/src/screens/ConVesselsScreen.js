@@ -1,20 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Table, Form, Button, Card, ListGroupItem } from 'react-bootstrap'
-import {useNavigate} from 'react-router-dom';
+import {  Col, Table } from 'react-bootstrap'
+
 
 import vessels from '../vessels.js'
 
 function ConVesselsScreen() {
 
-    const navigate = useNavigate();
-
-    const buttonHandler = () =>{
-        
-        console.log('funciona')
-        navigate('/vessel')
-    }
-
+    
     return (
         <Col md={9}>
            <h1>Connected vessels</h1>
@@ -24,12 +17,18 @@ function ConVesselsScreen() {
                 <tbody>
                     {vessels.map(vessel =>
                         <tr>
-                            <td>{vessel.name}</td>
+                            {vessel.name
+                                ?   <td>{vessel.name}</td>
+                                :   <td>{vessel.mmsi}</td>
+                            }
+                            
                             <td>74ms</td>
-                            <td>120334891</td>
+                            <td>{vessel.mmsi}</td>
                             <td>
-                            <Link to={`/vessel/${vessel.name}`}
+                             <Link to={`/vessel/${vessel.mmsi}`}
                                 className= 'btn btn-outline-primary btn-block my-1' role="button" aria-pressed="true">Guide</Link>
+                            
+                           
 
                             </td>
                         </tr>

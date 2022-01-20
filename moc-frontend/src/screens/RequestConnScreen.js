@@ -1,7 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Table, Form, Button, Card, ListGroupItem } from 'react-bootstrap'
-import {useNavigate} from 'react-router-dom';
+import React, {  useState } from 'react'
+import {  Button, Modal } from 'react-bootstrap'
+
 
 function RequestConnScreen() {
 
@@ -16,39 +15,43 @@ function RequestConnScreen() {
             'front_image' : '/images/front.jpg',
             'back_image' : '/images/back.jpg',
         }
-
-    return (
-        <Col>
-            <Row>
-                <h1>Connection request</h1>
-            </Row>
-            
-            <Row>
-                <Col>
-                    <b>{vessel.name}    </b>
-                    {vessel.mmsi}
-                </Col>
-            </Row>
-
-            <Row>
-                <Col>
-                    <Button variant='danger'>
-                        Deny
-                    </Button>  
-                </Col>
-                <Col>
-                    <Button variant='warning'>
-                        Authenticate and accept
-                    </Button>  
-                </Col>
-                <Col>
-                    <Button variant='warning'>
-                        Accept
-                    </Button>  
-                </Col>
-            </Row>
-        </Col>
-    )
-}
-
+        
+        
+       
+        
+            const [show, setShow] = useState(false);
+          
+            const handleClose = () => setShow(false);
+            const handleShow = () => setShow(true);
+          
+            return (
+              <>
+                <Button variant="primary" onClick={handleShow}>
+                  Launch demo request
+                </Button>
+          
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>New connection request</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                      <b>Vessel name: </b>
+                      {vessel.name}
+                      
+                    </Modal.Body>
+                  <Modal.Footer>
+                    
+                    <div class="btn-group bt-group-lg" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-danger">Deny</button>
+                        <button type="button" class="btn btn-warning">Authentificate and accept</button>
+                        <button type="button" class="btn btn-primary">Accept</button>
+                    </div>
+                      
+                  </Modal.Footer>
+                </Modal>
+              </>
+            );
+          }
+          
+        
 export default RequestConnScreen

@@ -10,24 +10,37 @@ import vessels from '../vessels.js'
 function VesselScreen() {
 
     let urlElements = window.location.href.split('/')
-    let vesselName = urlElements[urlElements.length-1]
+    let vesselMmsi = urlElements[urlElements.length-1]
 
     let vessel
-
+    
     let i = 0
-    while (i<vessels.length && vesselName !== vessels[i].name){
+    while (i<vessels.length && vesselMmsi !== vessels[i].mmsi){
         i++
     }
     if(i<vessels.length){
         vessel = vessels[i]
     }
+    
+    
        
     
     return (
         <Col>
             <Row>
                 <Col>
-                    <h1>{vessel.name}</h1>
+                    {vessel.name
+                        ? (<Row>  
+                                <h1>{vessel.name}</h1>
+                                <h3>mmsi: {vessel.mmsi}</h3>
+                            </Row>)
+
+                        : <h1>mmsi: {vessel.mmsi}</h1>
+                    }
+                    {vessel.simulation
+                        ? <i>Simulation</i>
+                        : console.log('real boat')
+                    }
                 </Col>
                 
                 <Col>
@@ -56,70 +69,56 @@ function VesselScreen() {
                             
                             </Col>
                         </Row>
-                       
-                        
-                    
                     
                     <Row>
-                            <Col>
-                                <Image src={vessel.front_image} alt='front' fluid rounded />
-                            </Col>
+                        {vessel.from_above
+                            ?(
+                                <Col>
+                                    <Image src={vessel.from_above} alt='front' fluid rounded />
+                                </Col>
+                            )
+                            : console.log('no info')
+                        }
+
+                        {vessel.from_above
+                            ?(
+                                <Col>
+                                    <Image src={vessel.from_abaft} alt='front' fluid rounded />
+                                </Col>
+                            )
+                            : console.log('no info')
+                        }
+                            
+
 
                         <Col>
-                            <Image src={vessel.back_image} alt='back' fluid rounded />
-                        </Col>
 
-                        <Col>
-                            {vessel.mmsi
+                            {vessel.call
                                 ?(
                                     <Col>
-                                        <b>mmsi:</b> 
-                                        {vessel.mmsi}  
+                                        <b>call:</b> {vessel.call}  
                                     </Col>
                                 ):(
                                     console.log('no info')
                                 )
                             }
 
-                            {vessel.mrn
-                                ?(
-                                    <Col>
-                                        <b>mrn:</b> {vessel.mrn}  
-                                    </Col>
-                                ):(
-                                    console.log('no info')
-                                )
-                            }
+                                <Col>
+                                    <b>loa:</b> {vessel.loa}  
+                                </Col>
 
-                            {vessel.height
-                                ?(
-                                    <Col>
-                                        <b>height:</b> {vessel.height}  
-                                    </Col>
-                                ):(
-                                    console.log('no info')
-                                )
-                            }
+                                <Col>
+                                    <b>breadth:</b> {vessel.breadth}  
+                                </Col>
+                               
+                                <Col>
+                                    <b>height:</b> {vessel.heigth}  
+                                </Col>
 
-                            {vessel.width
-                                ?(
-                                    <Col>
-                                        <b>width:</b> {vessel.width}  
-                                    </Col>
-                                ):(
-                                    console.log('no info')
-                                )
-                            }
+                                <Col>
+                                    <b>draft:</b> {vessel.draft}  
+                                </Col>
 
-                            {vessel.length
-                                ?(
-                                    <Col>
-                                        <b>length:</b> {vessel.length}  
-                                    </Col>
-                                ):(
-                                    console.log('no info')
-                                )
-                            }
    
                         </Col>
                     </Row>
@@ -136,40 +135,93 @@ function VesselScreen() {
                             <Col>
                                 <h6>Conning</h6>
                                 <Row>
-                                <i>Latitude:</i>
+                                    <Col>
+                                        <i>Latitude:</i>
+                                    </Col>
+                                    <Col>
+                                        {vessel.infoSteams.latitude}
+                                    </Col>
+                               
                                 </Row>
 
                                 <Row>
-                                <i>Longitude:</i>
+                                    <Col>
+                                        <i>Longitude:</i>
+                                    </Col>
+                                    <Col>
+                                        {vessel.infoSteams.longitude}
+                                    </Col>
                                 </Row>
 
                                 <Row>
-                                <i>Heading:</i>
+                                    <Col>
+                                        <i>Heading:</i>
+                                    </Col>
+                                    <Col>
+                                        {vessel.infoSteams.heading}
+                                    </Col>
                                 </Row>
                                 
                                 
                             </Col>
 
-                            <Col>
-                                <h6>Compass</h6>
-                            </Col>
+                            {vessel.infoSteams.compass
+                                ? (
+                                    <Col>
+                                        <h6>Compass</h6>
+                                    </Col>
+                                )
+                                : console.log('no compass')
+                            }
 
-                            <Col>
-                                
-                                <h6>Camera</h6>
-                                <Button
-                                    type="button" className="btn btn-danger btn-sm"
-                                    >Stop</Button>
-                                
-                                
-                            </Col>
+                            {vessel.infoSteams.camera
+                                ? (
+                                    <Col>
+                                        <h6>Camera</h6>
+                                        <Button
+                                            type="button" className="btn btn-danger btn-sm"
+                                        >Request</Button>
+                                    </Col>
+                                )
+                                : console.log('no camera')
+                            }
 
-                            <Col>
-                                <h6>Lidar</h6>
-                                <Button
-                                    type="button" className="btn btn-danger btn-sm"
-                                    >Request</Button>
-                            </Col>
+                            {vessel.infoSteams.lidar
+                                ? (
+                                    <Col>
+                                        <h6>Lidar</h6>
+                                        <Button
+                                            type="button" className="btn btn-danger btn-sm"
+                                        >Request</Button>
+                                    </Col>
+                                )
+                                : console.log('no lidar')
+                            }
+
+                            {vessel.infoSteams.audio
+                                ? (
+                                    <Col>
+                                        <h6>Audio</h6>
+                                        <Button
+                                            type="button" className="btn btn-danger btn-sm"
+                                        >Request</Button>
+                                    </Col>
+                                )
+                                : console.log('no lidar')
+                            }
+
+                            {vessel.infoSteams.radar
+                                ? (
+                                    <Col>
+                                        <h6>Radar</h6>
+                                        <Button
+                                            type="button" className="btn btn-danger btn-sm"
+                                        >Request</Button>
+                                    </Col>
+                                )
+                                : console.log('no lidar')
+                            }
+                           
 
                         </Row>
                        
