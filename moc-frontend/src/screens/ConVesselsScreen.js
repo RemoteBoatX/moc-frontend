@@ -12,7 +12,7 @@ function ConVesselsScreen() {
         <Col md={9}>
            <h1>Connected vessels</h1>
 
-            <Table striped responsibe className='table-sm'>
+            <Table striped responsive className='table-sm'>
 
                 <tbody>
                     {vessels.map(vessel =>
