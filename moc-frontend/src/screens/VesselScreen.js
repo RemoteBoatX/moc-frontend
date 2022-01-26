@@ -62,7 +62,7 @@ function VesselScreen() {
 
                             <Col>
                             <p
-                                class="text-warning text-end"
+                                className="text-warning text-end"
                                 >
                                     34ms
                                 </p>
@@ -234,7 +234,7 @@ function VesselScreen() {
                         <h5>Guidance</h5>
                         <Form>
                             <Form.Group>
-                                <div class='mb-3'>
+                                <div className='mb-3'>
                                     <textarea
                                         rows="5">
 
