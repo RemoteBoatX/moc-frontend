@@ -25,6 +25,14 @@ class ConVesselsScreen extends React.Component {
           const message = JSON.parse(evt.data)
           this.setState({dataFromServer: message})
           console.log(message)
+          const messageData = JSON.parse(evt.data)
+            for (vesselId in messageData) {
+                console.log('lo hace'
+                )
+            }
+          /*this.handleMessage(evt.data)*/
+
+          console.log(message[1])
           }
     
           this.ws.onclose = () => {
@@ -32,7 +40,31 @@ class ConVesselsScreen extends React.Component {
           // automatically try to reconnect on connection loss
     
           }
+
+          
+          }
+        
+
+   /*handleMessage(data){
+            const messageData = JSON.parse(data)
+            for (vesselId in messageData) {
+                console.log('lo hace'
+                )
+                 
+            
+                const message = messageData[0];
+              if (message.connected === true) {
+                    this.addVessel(vesselId)
+                   
+                }
+                console.log('vessel', message)
+           }
+        }*/
+
+       /* addVessel(vesselId){
+            console.log('añadido',vesselId)
         }
+*/
     
     render(){
     return (
