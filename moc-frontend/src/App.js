@@ -13,35 +13,57 @@ class App extends React.Component {
     
   constructor(props){
     super(props)
-    
+    this.state={
+      dataFromServer : null,
+    }
+
   }
-  /*
-  ws = new WebSocket("ws://localhost:8080/frontend")
+
   
   componentDidMount() {
   
-    this.ws.onopen = () => {
+    const ws = new WebSocket(this.props.backendUrl)
+    
+    ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log('connected')
-      }
-
-      this.ws.onmessage = evt => {
-      // listen to data sent from the websocket server
-      const message = JSON.parse(evt.data)
-      this.setState({dataFromServer: message})
-      console.log(message)
-      }
-
-      this.ws.onclose = () => {
+    }
+  
+    ws.onclose = () => {
       console.log('disconnected')
       // automatically try to reconnect on connection loss
+      
+    }
 
+    ws.onmessage  = (evt) => {
+      // listen to data sent from the websocket server
+      const message = JSON.parse(evt.data)
+      console.log(message)
+
+      if(message["update"]){
+        delete message["update"]
+        for (let vesselId in message){
+          for(let messageKey in message[vesselId]){
+            this.setState((previousState, currentProps)=> {
+              if(!previousState[vesselId]){
+                previousState[vesselId] = {}
+              }
+              previousState[vesselId][messageKey] = message[vesselId][messageKey]
+            })
+          }
+        }
+
+      }else{
+        delete message["update"]
+        this.setState({dataFromServer: message})
       }
     }
-    */
-    
-  
-  
+    this.setState({ws:ws})
+  }
+
+  componentWillUnmount(){
+    /*close websocket*/ 
+  }
 
  render (){
  

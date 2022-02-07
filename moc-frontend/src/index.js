@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App backendUrl="ws://localhost:8080/frontend"/>
   </React.StrictMode>,
   document.getElementById('root')
 );
