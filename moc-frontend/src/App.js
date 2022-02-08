@@ -38,7 +38,7 @@ class App extends React.Component {
     ws.onmessage  = (evt) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      console.log(message)
+      //console.log(message)
 
       if(message["update"]){
         delete message["update"]
@@ -49,6 +49,7 @@ class App extends React.Component {
                 previousState[vesselId] = {}
               }
               previousState[vesselId][messageKey] = message[vesselId][messageKey]
+              console.log('estado',this.state.dataFromServer)
             })
           }
         }
@@ -56,6 +57,7 @@ class App extends React.Component {
       }else{
         delete message["update"]
         this.setState({dataFromServer: message})
+        
       }
     }
     this.setState({ws:ws})
@@ -74,7 +76,7 @@ class App extends React.Component {
       <Container>
         <main className='py-3'>
           <Routes>
-            <Route path='/' element={<ConVesselsScreen/>}/>
+            <Route path='/' element={<ConVesselsScreen info={this.state.dataFromServer}/>}/>
             <Route path='/vessel/:id' element={<VesselScreen/>}/>
             <Route path='/request' element={<RequestConnScreen/>}/>
           </Routes>
