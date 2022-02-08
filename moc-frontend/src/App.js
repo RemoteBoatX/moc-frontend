@@ -9,37 +9,37 @@ import VesselScreen from './screens/VesselScreen'
 import RequestConnScreen from './screens/RequestConnScreen';
 
 class App extends React.Component {
-   
-    
+  
+  
   constructor(props){
     super(props)
     this.state={
       dataFromServer : null,
     }
-
+    
   }
-
+  
   
   componentDidMount() {
-  
+    
     const ws = new WebSocket(this.props.backendUrl)
     
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log('connected')
     }
-  
+    
     ws.onclose = () => {
       console.log('disconnected')
       // automatically try to reconnect on connection loss
       
     }
-
+    
     ws.onmessage  = (evt) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
       //console.log(message)
-
+      
       if(message["update"]){
         delete message["update"]
         for (let vesselId in message){
@@ -53,7 +53,7 @@ class App extends React.Component {
             })
           }
         }
-
+        
       }else{
         delete message["update"]
         this.setState({dataFromServer: message})
@@ -62,30 +62,31 @@ class App extends React.Component {
     }
     this.setState({ws:ws})
   }
-
+  
   componentWillUnmount(){
     /*close websocket*/ 
   }
-
- render (){
- 
-   return(
+  
+  render (){
+    
+    return(
       <Router>
       <Header />
-
+      
       <Container>
-        <main className='py-3'>
-          <Routes>
-            <Route path='/' element={<ConVesselsScreen info={this.state.dataFromServer}/>}/>
-            <Route path='/vessel/:id' element={<VesselScreen/>}/>
-            <Route path='/request' element={<RequestConnScreen/>}/>
-          </Routes>
-        </main>
-
+      <main className='py-3'>
+      <Routes>
+      <Route path='/' element={<ConVesselsScreen info={this.state.dataFromServer}/>}/>
+      <Route path='/vessel/:id' element={<VesselScreen/>}/>
+      <Route path='/request' element={<RequestConnScreen/>}/>
+      </Routes>
+      </main>
+      
       </Container>
-  </Router>
-   )
- }
-}
-
-export default App
+      </Router>
+      )
+    }
+  }
+  
+  export default App
+  
