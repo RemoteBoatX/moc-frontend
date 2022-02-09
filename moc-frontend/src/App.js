@@ -15,6 +15,7 @@ class App extends React.Component {
     super(props)
     this.state={
       dataFromServer : null,
+      ws : null,
     }
     
   }
@@ -38,28 +39,62 @@ class App extends React.Component {
     ws.onmessage  = (evt) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      //console.log('mensaje',message)
+      console.log('mensaje',message)
       
+      console.log('estado', this.state.dataFromServer)
+
       if(message["update"]){
         delete message["update"]
-        for (let vesselId in message){
+        for(let vesselId in message){
           for(let messageKey in message[vesselId]){
-            this.setState((previousState, currentProps)=> {
-              if(!previousState[vesselId]){
-                previousState[vesselId] = {}
-               
+            this.setState({
+              dataFromServer: {
+                [vesselId]: {
+                  [messageKey]: message[vesselId][messageKey]
+                }
               }
-              previousState[vesselId][messageKey] = message[vesselId][messageKey]
-              console.log('estado',this.state.dataFromServer)
             })
           }
+        }
+      }
+      else{
+        delete message["update"]
+        this.setState({dataFromServer: message})
+        //console.log('else',this.state.dataFromServer)
+      }
+      /*
+      if(message["update"]){
+        console.log('m',message)
+        delete message["update"]
+        console.log('antes', this.state.dataFromServer)
+        for (let vesselId in message){
+          if(message[vesselId]["connected"]){
+            let prevState = this.state.dataFromServer
+            delete prevState[vesselId]
+            this.setState({dataFromServer: prevState})
+          }
+          else{
+            for(let messageKey in message[vesselId]){
+              console.log('alex', message[vesselId][messageKey])
+                this.setState({
+                  dataFromServer: {
+                    vesselId: {
+                      messageKey: message[vesselId][messageKey]
+                    }
+                  }
+                })
+              
+            }
+          }
+          console.log('despues', this.state.dataFromServer)
         }
         
       }else{
         delete message["update"]
         this.setState({dataFromServer: message})
         //console.log('else',this.state.dataFromServer)
-      }
+      } */
+      //console.log('estado',this.state.dataFromServer)
     }
     this.setState({ws:ws})
   }

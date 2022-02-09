@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {  Col, Row, Table } from 'react-bootstrap'
+import RowTable from '../components/RowTable'
 
 
-import vessels from '../vessels.js'
 
 class ConVesselsScreen extends React.Component {
     
@@ -13,26 +12,15 @@ class ConVesselsScreen extends React.Component {
     
     
     render(){
-        console.log('props',this.props.info)
+        //console.log('props',this.props.info)
         const items = []
-
+/*
         for (let vesselId in this.props.info){
             let latency = this.props.info[vesselId]["latency"]["roundTrip"]
             items.push(
-            <tr key={vesselId}>
-                <td>
-                    {vesselId}
-                </td>
-                <td>
-                    {latency}ms
-                </td>
-                <td>
-                <Link to={`/vessel/${vesselId}`}
-        className= 'btn btn-outline-primary btn-block my-1' role="button" aria-pressed="true">Guide</Link>
-                </td>
-            
-            </tr>)
-        }
+                <RowTable vesselId={vesselId} latency={latency}></RowTable>
+                )
+        }*/
         return (
             
             <Col>
@@ -47,7 +35,7 @@ class ConVesselsScreen extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                   {items}
+                   
                 </tbody>
             </Table>
             
