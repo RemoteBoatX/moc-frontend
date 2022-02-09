@@ -38,7 +38,7 @@ class App extends React.Component {
     ws.onmessage  = (evt) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      //console.log(message)
+      //console.log('mensaje',message)
       
       if(message["update"]){
         delete message["update"]
@@ -47,6 +47,7 @@ class App extends React.Component {
             this.setState((previousState, currentProps)=> {
               if(!previousState[vesselId]){
                 previousState[vesselId] = {}
+               
               }
               previousState[vesselId][messageKey] = message[vesselId][messageKey]
               console.log('estado',this.state.dataFromServer)
@@ -57,7 +58,7 @@ class App extends React.Component {
       }else{
         delete message["update"]
         this.setState({dataFromServer: message})
-        
+        //console.log('else',this.state.dataFromServer)
       }
     }
     this.setState({ws:ws})
