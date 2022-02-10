@@ -14,13 +14,13 @@ class ConVesselsScreen extends React.Component {
     render(){
         //console.log('props',this.props.info)
         const items = []
-/*
+
         for (let vesselId in this.props.info){
-            let latency = this.props.info[vesselId]["latency"]["roundTrip"]
+            let vesselInfo = this.props.info[vesselId]
             items.push(
-                <RowTable vesselId={vesselId} latency={latency}></RowTable>
+                <RowTable vesselInfo = {vesselInfo} vesselId = {vesselId}></RowTable>
                 )
-        }*/
+        }
         return (
             
             <Col>
@@ -35,10 +35,10 @@ class ConVesselsScreen extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                   
+                    {items}
                 </tbody>
             </Table>
-            
+                
             </Col>
             
             

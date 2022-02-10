@@ -11,7 +11,13 @@ class RowTable extends React.Component {
   }
 
   render (){
-    
+      console.log("estado en tabla", this.props.vesselInfo)
+      let latency = 0
+      if(this.props.vesselInfo["latency"]){
+        latency = this.props.vesselInfo["latency"]["roundTrip"]
+        console.log('latency',latency)
+      }
+
       return (
         <tr key={this.props.vesselId}>
             <td>
@@ -19,7 +25,7 @@ class RowTable extends React.Component {
             </td>
 
             <td>
-                {this.props.latency}ms
+                {latency}ms
             </td>
 
             <td>
@@ -28,7 +34,10 @@ class RowTable extends React.Component {
             </td>
         
     </tr>
+
       )
+      
+      
   }
 }
 
