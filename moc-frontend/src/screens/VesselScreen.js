@@ -4,29 +4,46 @@ import { Row, Col, ListGroup, Image, Table, Form, Button, Card, ListGroupItem } 
 import {useNavigate} from 'react-router-dom';
 
 import vessels from '../vessels.js'
+import { render } from 'react-dom';
 
 
 
-function VesselScreen() {
+class VesselScreen extends React.Component {
 
-    let urlElements = window.location.href.split('/')
-    let vesselMmsi = urlElements[urlElements.length-1]
-
-    let vessel
+    constructor(props){
+        super(props)
+    }
     
+    /*
+    for(let vesselId in this.props.info){
+        if(vesselMmsi === this.props.info[vesselId]){break}
+    }
+
     let i = 0
-    while (i<vessels.length && vesselMmsi !== vessels[i].mmsi){
+    while (i<this.props.info.length && vesselMmsi !== this.props.info[i]){
         i++
     }
     if(i<vessels.length){
         vessel = vessels[i]
     }
-    
+    */
     
        
-    
+    render(){
+
+    let urlElements = window.location.href.split('/')
+    let vesselMmsi = urlElements[urlElements.length-1]
+
+    let vessel
+    console.log("vesselScreen", this.props.info)
+
     return (
-        <Col>
+        <div>
+
+            {vesselMmsi}
+            {this.props.info["vessel"]["streams"]}
+        </div>
+       /* <Col>
             <Row>
                 <Col>
                     {vessel.name
@@ -252,7 +269,9 @@ function VesselScreen() {
 
             </Row>
         </Col>
+        */
     )
+    }
 }
 
 export default VesselScreen

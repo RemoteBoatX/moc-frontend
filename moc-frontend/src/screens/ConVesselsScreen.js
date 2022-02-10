@@ -24,7 +24,6 @@ class ConVesselsScreen extends React.Component {
         return (
             
             <Col>
-            
             <h1>Connected vessels</h1>
             <Table responsive hover>
                 <thead>

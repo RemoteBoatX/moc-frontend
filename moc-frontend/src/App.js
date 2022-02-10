@@ -46,15 +46,15 @@ class App extends React.Component {
       if(message["update"]){
         delete message["update"]
         for(let vesselId in message){
+          const newState = {... this.state.dataFromServer[vesselId]}
           for(let messageKey in message[vesselId]){
-            this.setState({
+            newState[messageKey] = message[vesselId][messageKey]
+            this.setState({ 
               dataFromServer: {
-                [vesselId]: {
-                  [messageKey]: message[vesselId][messageKey]
-                }
+                [vesselId]: newState
               }
             })
-          }
+          } 
         }
       }
       else{
@@ -113,7 +113,7 @@ class App extends React.Component {
       <main className='py-3'>
       <Routes>
       <Route path='/' element={<ConVesselsScreen info={this.state.dataFromServer}/>}/>
-      <Route path='/vessel/:id' element={<VesselScreen/>}/>
+      <Route path='/vessel/:id' element={<VesselScreen info={this.state.dataFromServer}/>}/>
       <Route path='/request' element={<RequestConnScreen/>}/>
       </Routes>
       </main>
