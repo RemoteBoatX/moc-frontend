@@ -39,9 +39,9 @@ class App extends React.Component {
     ws.onmessage  = (evt) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      console.log('mensaje',message)
+      //console.log('mensaje',message)
       
-      console.log('estado', this.state.dataFromServer)
+      //console.log('estado', this.state.dataFromServer)
 
       if(message["update"]){
         delete message["update"]
