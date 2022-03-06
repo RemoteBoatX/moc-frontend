@@ -1,15 +1,10 @@
 import React from 'react'
 import {  Col, Table } from 'react-bootstrap'
-import RowTable from '../components/RowTable'
+import VesselRow from '../components/VesselRow'
 
 
 
-class ConVesselsScreen extends React.Component {
-    
-    constructor(props){
-        super(props)
-    }
-    
+class ConVesselsScreen extends React.Component {    
     
     render(){
         
@@ -18,7 +13,7 @@ class ConVesselsScreen extends React.Component {
         for (let vesselId in this.props.info){
             let vesselInfo = this.props.info[vesselId]
             items.push(
-                <RowTable vesselInfo = {vesselInfo} vesselId = {vesselId}></RowTable>
+                <VesselRow vesselInfo = {vesselInfo} vesselId = {vesselId}></VesselRow>
                 )
         }
         return (
@@ -30,7 +25,6 @@ class ConVesselsScreen extends React.Component {
                     <tr>
                         <th>Vessel id</th>
                         <th>Latency</th>
-                        <th>Guidance</th>
                     </tr>
                 </thead>
                 <tbody>

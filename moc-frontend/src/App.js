@@ -32,6 +32,7 @@ class App extends React.Component {
     
     ws.onclose = () => {
       console.log('disconnected')
+      this.setState({dataFromServer: {}})
       // automatically try to reconnect on connection loss
       
     }

@@ -6,12 +6,13 @@ import Camara from '../components/Camara.js';
 import { Row, Col, Form, Button, Card } from 'react-bootstrap'
 
 class Vessel extends React.Component{
-    
-    constructor(props){
-        super(props)
-    }
+
     
     render (){
+        let streams = this.props.info["vessel"]["streams"]
+        let latency = this.props.info["latency"]["roundTrip"]
+        let conning = this.props.info["conning"]
+
         return (
             <Col>
             <Row>
@@ -39,7 +40,7 @@ class Vessel extends React.Component{
             <p
             className="text-warning text-end"
             >
-            {this.props.latency}
+            {latency}
             </p>
             
             </Col>
@@ -54,15 +55,15 @@ class Vessel extends React.Component{
             </Row>
             
             <Row>
-            {this.props.conning
+            {conning
                 ?(
                     <Col md={6}>
-                    <Conning conning= {this.props.conning}></Conning>
+                    <Conning conning= {conning}></Conning>
                     </Col>
                     )
                     :
                     (
-                        <Row> <b>Request conning to see the information </b> </Row>
+                        <Row> <b>Waiting for conning </b> </Row>
                         )
                     }
                     
@@ -89,7 +90,7 @@ class Vessel extends React.Component{
                     </Card>
                     </Col>
                     </Row>
-                    {this.props.streams["camera"]
+                    {streams["camera"]
                     ?(
                         <Row>
                         <Col>
@@ -109,7 +110,7 @@ class Vessel extends React.Component{
                             )
                         }
                         
-                        {this.props.streams["radar"]
+                        {streams["radar"]
                         ?(
                             <Row>
                             <Col>
